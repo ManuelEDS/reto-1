@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tic-Tac-Toe</string>
+    <string name="first_human">You go first.</string>
+    <string name="first_android">Android goes first.</string>
+    <string name="turn_human">Your turn.</string>
+    <string name="turn_computer">Android\'s turn.</string>
+    <string name="result_tie">It\'s a tie.</string>
+    <string name="result_human_wins">You won!</string>
+    <string name="result_computer_wins">Android won!</string>
+    <string name="human_score">Human: %d</string>
+    <string name="ties_score">Ties: %d</string>
+    <string name="android_score">Android: %d</string>
+</resources>
