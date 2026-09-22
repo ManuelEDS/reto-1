@@ -1,15 +1,26 @@
 package com.example.androidtictactoe;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AndroidTicTacToeActivity extends Activity {
+
+    static final int DIALOG_DIFFICULTY_ID = 0;
+    static final int DIALOG_QUIT_ID = 1;
+    static final int DIALOG_ABOUT_ID = 2;
 
     // Represents the internal state of the game
     private TicTacToeGame mGame;
@@ -163,13 +174,87 @@ public class AndroidTicTacToeActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add("New Game");
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        startNewGame();
-        return true;
+        int id = item.getItemId();
+        if (id == R.id.new_game) {
+            startNewGame();
+            return true;
+        } else if (id == R.id.ai_difficulty) {
+            showDialog(DIALOG_DIFFICULTY_ID);
+            return true;
+        } else if (id == R.id.quit) {
+            showDialog(DIALOG_QUIT_ID);
+            return true;
+        } else if (id == R.id.about) {
+            showDialog(DIALOG_ABOUT_ID);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        switch (id) {
+            case DIALOG_DIFFICULTY_ID:
+                builder.setTitle(R.string.difficulty_choose);
+                final CharSequence[] levels = {
+                    getResources().getString(R.string.difficulty_easy),
+                    getResources().getString(R.string.difficulty_harder),
+                    getResources().getString(R.string.difficulty_expert)
+                };
+
+                // selected is the radio button that should be selected
+                int selected = mGame.getDifficultyLevel().ordinal();
+
+                builder.setSingleChoiceItems(levels, selected,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int item) {
+                            dialog.dismiss(); // Close dialog
+
+                            // Set the diff level of mGame based on which item was selected
+                            mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.values()[item]);
+
+                            // Display the selected difficulty level
+                            Toast.makeText(getApplicationContext(), levels[item],
+                                Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                dialog = builder.create();
+                break;
+
+            case DIALOG_QUIT_ID:
+                // Create the quit confirmation dialog
+                builder.setMessage(R.string.quit_question)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            AndroidTicTacToeActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.no, null);
+                dialog = builder.create();
+                break;
+
+            case DIALOG_ABOUT_ID:
+                Context context = getApplicationContext();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.about_dialog, null);
+                builder.setView(layout);
+                builder.setPositiveButton(R.string.ok, null);
+                dialog = builder.create();
+                break;
+        }
+
+        return dialog;
     }
 }

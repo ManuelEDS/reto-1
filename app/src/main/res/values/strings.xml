@@ -11,4 +11,22 @@
     <string name="human_score">Human: %d</string>
     <string name="ties_score">Ties: %d</string>
     <string name="android_score">Android: %d</string>
+
+    <!-- Difficulty strings -->
+    <string name="difficulty_choose">Choose a difficulty level:</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_harder">Harder</string>
+    <string name="difficulty_expert">Expert</string>
+
+    <!-- Quit dialog strings -->
+    <string name="quit_question">Are you sure you want to quit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- About dialog strings (Extra Challenge) -->
+    <string name="about">About</string>
+    <string name="about_title">Tic-Tac-Toe</string>
+    <string name="about_author">By Manuel Diaz</string>
+    <string name="about_text">Choose from one of three difficulty levels.\nDon\'t let the Android beat you!</string>
+    <string name="ok">OK</string>
 </resources>
