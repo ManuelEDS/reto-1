@@ -47,10 +47,12 @@ public class TicTacToeGame {
      * @param player - The HUMAN_PLAYER or COMPUTER_PLAYER
      * @param location - The location (0-8) to place the move
      */
-    public void setMove(char player, int location) {
+    public boolean setMove(char player, int location) {
         if (location >= 0 && location < BOARD_SIZE && mBoard[location] == OPEN_SPOT) {
             mBoard[location] = player;
+            return true;
         }
+        return false;
     }
 
     /** Return the occupant of the given location on the game board.
