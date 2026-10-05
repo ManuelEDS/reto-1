@@ -91,4 +91,26 @@ public class TicTacToeGameTest {
         int move = mGame.getComputerMove();
         assertEquals(5, move);
     }
+
+    @Test
+    public void testGetAndSetBoardState() {
+        mGame.setMove(TicTacToeGame.HUMAN_PLAYER, 0);
+        mGame.setMove(TicTacToeGame.COMPUTER_PLAYER, 4);
+        mGame.setMove(TicTacToeGame.HUMAN_PLAYER, 8);
+
+        char[] state = mGame.getBoardState();
+        assertNotNull(state);
+        assertEquals(TicTacToeGame.BOARD_SIZE, state.length);
+        assertEquals(TicTacToeGame.HUMAN_PLAYER, state[0]);
+        assertEquals(TicTacToeGame.COMPUTER_PLAYER, state[4]);
+        assertEquals(TicTacToeGame.HUMAN_PLAYER, state[8]);
+
+        // Create new game and restore state
+        TicTacToeGame newGame = new TicTacToeGame();
+        newGame.setBoardState(state);
+        assertEquals(TicTacToeGame.HUMAN_PLAYER, newGame.getBoardOccupant(0));
+        assertEquals(TicTacToeGame.COMPUTER_PLAYER, newGame.getBoardOccupant(4));
+        assertEquals(TicTacToeGame.HUMAN_PLAYER, newGame.getBoardOccupant(8));
+        assertEquals(TicTacToeGame.OPEN_SPOT, newGame.getBoardOccupant(1));
+    }
 }

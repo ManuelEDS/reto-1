@@ -41,6 +41,24 @@ public class TicTacToeGame {
         }
     }
 
+    /**
+     * Return a copy of the current board state.
+     * @return char array representing the board
+     */
+    public char[] getBoardState() {
+        return mBoard.clone();
+    }
+
+    /**
+     * Restore the board state from the given char array.
+     * @param board - char array representing the board
+     */
+    public void setBoardState(char[] board) {
+        if (board != null) {
+            mBoard = board.clone();
+        }
+    }
+
     /** Set the given player at the given location on the game board.
      * The location must be available, or the board will not be changed.
      * 

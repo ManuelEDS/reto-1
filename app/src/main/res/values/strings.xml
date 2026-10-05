@@ -23,6 +23,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <string name="reset_scores">Reset Scores</string>
+
     <!-- About dialog strings (Extra Challenge) -->
     <string name="about">About</string>
     <string name="about_title">Tic-Tac-Toe</string>
